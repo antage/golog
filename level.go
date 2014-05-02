@@ -3,8 +3,8 @@ package golog
 type Severity int
 
 const (
-	ERROR Severity = iota
+	ERROR Severity = 1 << iota
 	INFO
 	DEBUG
-	ALL = Severity(-1)
+	ALL Severity = ^0
 )
