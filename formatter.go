@@ -100,11 +100,11 @@ func (formatter ColorFormatter) FormatWarning(msg string) string {
 }
 
 func (formatter ColorFormatter) FormatInfo(msg string) string {
-	return msg
+	return fmt.Sprintf("%s%s%s", "\x1b[32m", msg, "\x1b[0m")
 }
 
 func (formatter ColorFormatter) FormatDebug(msg string) string {
-	return fmt.Sprintf("%s%s%s", "\x1b[32m", msg, "\x1b[0m")
+	return msg
 }
 
 func DefaultConsoleFormatter() Formatter {
