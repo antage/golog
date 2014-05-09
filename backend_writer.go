@@ -36,6 +36,14 @@ func (backend writerBackend) Error(msg string) {
 	backend.flush()
 }
 
+func (backend writerBackend) Warning(msg string) {
+	backend.Lock()
+	defer backend.Unlock()
+
+	backend.writer.Write([]byte(msg))
+	backend.flush()
+}
+
 func (backend writerBackend) Info(msg string) {
 	backend.Lock()
 	defer backend.Unlock()

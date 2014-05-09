@@ -23,6 +23,10 @@ func (backend syslogBackend) Error(msg string) {
 	backend.syslog.Err(msg)
 }
 
+func (backend syslogBackend) Warning(msg string) {
+	backend.syslog.Warning(msg)
+}
+
 func (backend syslogBackend) Info(msg string) {
 	backend.syslog.Info(msg)
 }

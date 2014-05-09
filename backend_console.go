@@ -28,6 +28,14 @@ func (backend consoleBackend) Error(msg string) {
 	backend.stderr.Sync()
 }
 
+func (backend consoleBackend) Warning(msg string) {
+	backend.Lock()
+	defer backend.Unlock()
+
+	backend.stderr.Write([]byte(msg))
+	backend.stderr.Sync()
+}
+
 func (backend consoleBackend) Info(msg string) {
 	backend.Lock()
 	defer backend.Unlock()

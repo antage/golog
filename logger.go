@@ -16,6 +16,7 @@ type Logger interface {
 	AddBackend(mask Severity, formatter Formatter, backend Backend)
 
 	Errorf(format string, args ...interface{})
+	Warningf(format string, args ...interface{})
 	Infof(format string, args ...interface{})
 	Debugf(format string, args ...interface{})
 
@@ -57,6 +58,21 @@ func (l *logger) Errorf(format string, args ...interface{}) {
 
 		msgFormatted := sink.formatter.FormatError(msg)
 		sink.backend.Error(msgFormatted)
+	}
+}
+
+func (l *logger) Warningf(format string, args ...interface{}) {
+	l.RLock()
+	defer l.RUnlock()
+
+	msg := fmt.Sprintf(format, args...)
+	for _, sink := range l.sinks {
+		if sink.mask&WARNING == 0 {
+			continue
+		}
+
+		msgFormatted := sink.formatter.FormatWarning(msg)
+		sink.backend.Warning(msgFormatted)
 	}
 }
 
